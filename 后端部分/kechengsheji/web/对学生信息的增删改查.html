@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>学生信息管理</title>
+	<style>
+		table, td, th {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+		th {
+			background-color: #d0d0d0;
+		}
+	</style>
+</head>
+<body>
+	<h2>学生信息管理</h2>
+	<form>
+		<label>学生编号：</label><input type="text" id="stuID"><br>
+		<label>学生姓名：</label><input type="text" id="stuName"><br>
+		<label>学生年龄：</label><input type="text" id="stuAge"><br>
+		<label>学生性别：</label><input type="radio" name="gender" value="male">男
+						        <input type="radio" name="gender" value="female">女<br>
+        <label>学生专业:</label><input type="text" id="stuDepartment"><br>
+        <label>学生联系电话：</label><input type="text" id="stuPhone"><br>
+		<button type="button" onclick="addStudent()">添加</button>
+		<button type="button" onclick="modifyStudent()">修改</button>
+		<button type="button" onclick="deleteStudent()">删除</button>
+	</form>
+	<br>
+	<table id="studentTable">
+		<tr>
+			<th>学生编号</th>
+			<th>学生姓名</th>
+			<th>学生年龄</th>
+			<th>学生性别</th>
+		</tr>
+	</table>
+	<script src="student.js">
+    var studentTable = document.getElementById("studentTable");
+var stuIDInput = document.getElementById("stuID");
+var stuNameInput = document.getElementById("stuName");
+var stuAgeInput = document.getElementById("stuAge");
+var genderInputs = document.getElementsByName("gender");
+
+// 获取所有学生信息
+function getAllStudents() {
+    // 调用后端API，获取所有学生信息
+    // 返回的数据格式为JSON数组
+    var students = [
+        {"id": "10001", "name": "张三", "age": 20, "gender": "male"},
+        {"id": "10002", "name": "李四", "age": 21, "gender": "female"},
+        {"id": "10003", "name": "王五", "age": 22, "gender": "male"}
+    ];
+
+    // 将学生信息添加到表格中
+    for (var i = 0; i < students.length; i++) {
+        var newRow = studentTable.insertRow();
+        var newCell1 = newRow.insertCell();
+        var newCell2 = newRow.insertCell();
+        var newCell3 = newRow.insertCell();
+        var newCell4 = newRow.insertCell();
+        newCell1.innerHTML = students[i].id;
+        newCell2.innerHTML = students[i].name;
+        newCell3.innerHTML = students[i].age;
+        newCell4.innerHTML = students[i].gender;
+    }
+}
+
+// 添加学生信息
+function addStudent() {
+    // 获取输入的学生信息
+    var id = stuIDInput.value;
+    var name = stuNameInput.value;
+    var age = stuAgeInput.value;
+    var gender = "";
+    for (var i = 0; i < genderInputs.length; i++) {
+        if (genderInputs[i].checked) {
+            gender = genderInputs[i].value;
+            break;
+        }
+    }
+
+    // 调用后端API，添加学生信息
+    // 成功添加后，将新的学生信息添加到表格中
+    var newRow = studentTable.insertRow();
+    var newCell1 = newRow.insertCell();
+    var newCell2 = newRow.insertCell();
+    var newCell3 = newRow.insertCell();
+    var newCell4 = newRow.insertCell();
+    newCell1.innerHTML = id;
+    newCell2.innerHTML = name;
+    newCell3.innerHTML = age;
+    newCell4.innerHTML = gender;
+}
+
+// 修改学生信息
+function modifyStudent() {
+    // 获取待修改的学生信息
+    var selectedRow = studentTable.getElementsByTagName("tr")[studentTable.selectedIndex];
+    var id = selectedRow.cells[0].innerHTML;
+    var name = selectedRow.cells[1].innerHTML;
+    var age = selectedRow.cells[2].innerHTML;
+    var gender = selectedRow.cells[3].innerHTML;
+
+    // 将待修改的学生信息填充到输入表单中
+    stuIDInput.value = id;
+    stuNameInput.value = name;
+    stuAgeInput.value = age;
+    for (var i = 0; i < genderInputs.length; i++) {
+        if (genderInputs[i].value == gender) {
+            genderInputs[i].checked = true;
+            break;
+        }
+    }
+
+    // 调用后端API，修改学生信息
+    // 成功修改后，更新表格中对应的学生信息
+    selectedRow.cells[1].innerHTML = name;
+    selectedRow.cells[2].innerHTML = age;
+    selectedRow.cells[3].innerHTML = gender;
+}
+
+// 删除学生信息
+function deleteStudent() {
+    // 获取待删除的学生信息
+    var selectedRow = studentTable.getElementsByTagName("tr")[studentTable.selectedIndex];
+    var id = selectedRow.cells[0].innerHTML;
+
+    // 调用后端API，删除学生信息
+    // 成功删除后，将表格中的对应行删除
+    studentTable.deleteRow(studentTable.selectedIndex);
+}
+
+// 页面加载完毕后执行的初始化函数
+window.onload = function() {
+    getAllStudents();
+}
+
+  </script>
+</body>
+</html>

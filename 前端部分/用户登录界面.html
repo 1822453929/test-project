@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>用户登录</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body {
+			background-color: #f0f0f0;
+		}
+
+		form {
+			background-color: white;
+			width: 400px;
+			padding: 20px;
+			margin: 50px auto;
+			box-shadow: 0 0 10px #aaa;
+			border-radius: 5px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		input[type="text"], input[type="password"] {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 0 5px #ddd;
+		}
+
+		input[type="submit"] {
+			display: block;
+			background-color: #008CBA;
+			color: white;
+			padding: 10px;
+			margin-top: 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #005F6B;
+		}
+	</style>
+</head>
+<body>
+	<form action="毕设学生分配系统.html" method="post">
+		<h2>用户登录</h2>
+		<label for="username">用户名：</label>
+		<input type="text" id="username" name="username" required>
+		<label for="password">密码：</label>
+		<input type="password" id="password" name="password" required>
+		<input id="dl" type="submit" value="登录">
+	</form>
+
+</body>
+</html>

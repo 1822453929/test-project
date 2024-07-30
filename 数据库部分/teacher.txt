@@ -1,0 +1,2 @@
+"id"	"name"	"gender"	"department"	"phone"
+"123"	"t1"	"男"	"计算机学院"	"123456789"

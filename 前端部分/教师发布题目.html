@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>发布题目</title>
+	<style>
+		label {
+			display: inline-block;
+			width: 100px;
+		}
+	</style>
+</head>
+<body>
+	<h1>发布题目</h1>
+	<form>
+		<label>题目名称:</label>
+		<input type="text" id="questionName"><br><br>
+
+		<label>题目类型:</label>
+		<select id="questionType">
+			<option value="singleChoice">单选题</option>
+			<option value="multipleChoice">多选题</option>
+			<option value="fillInBlank">填空题</option>
+			<option value="essayQuestion">问答题</option>
+		</select><br><br>
+
+		<label>题目内容:</label><br>
+		<textarea id="questionContent" rows="5" cols="50"></textarea><br><br>
+
+		<label>选项A:</label>
+		<input type="text" id="optionA"><br><br>
+		<label>选项B:</label>
+		<input type="text" id="optionB"><br><br>
+		<label>选项C:</label>
+		<input type="text" id="optionC"><br><br>
+		<label>选项D:</label>
+		<input type="text" id="optionD"><br><br>
+
+		<label>正确答案:</label>
+		<input type="text" id="correctAnswer"><br><br>
+
+		<button type="button" onclick="submitQuestion()">提交</button>
+	</form>
+
+	<script src="question.js">
+        function submitQuestion() {
+    // 获取题目信息
+    var questionName = document.getElementById("questionName").value;
+    var questionType = document.getElementById("questionType").value;
+    var questionContent = document.getElementById("questionContent").value;
+    var optionA = document.getElementById("optionA").value;
+    var optionB = document.getElementById("optionB").value;
+    var optionC = document.getElementById("optionC").value;
+    var optionD = document.getElementById("optionD").value;
+    var correctAnswer = document.getElementById("correctAnswer").value;
+
+    // 将题目信息封装成一个对象
+    var question = {
+        "name": questionName,
+        "type": questionType,
+        "content": questionContent,
+        "options": {
+            "A": optionA,
+            "B": optionB,
+            "C": optionC,
+            "D": optionD
+        },
+        "correctAnswer": correctAnswer
+    };
+
+    // 调用后端API，将题目信息保存到数据库中
+    // 保存成功后，弹窗提示用户
+    alert("题目已成功发布！");
+}
+
+    </script>
+</body>
+</html>

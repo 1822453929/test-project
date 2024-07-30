@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>学生选择题目</title>
+	<style>
+		label {
+			display: inline-block;
+			width: 100px;
+		}
+	</style>
+</head>
+<body>
+	<h1>学生选择题目</h1>
+	<form>
+		<label>题目类型:</label>
+		<select id="questionType">
+			<option value="">全部题目</option>
+			<option value="singleChoice">单选题</option>
+			<option value="multipleChoice">多选题</option>
+			<option value="fillInBlank">填空题</option>
+			<option value="essayQuestion">问答题</option>
+		</select><br><br>
+
+		<button type="button" onclick="searchQuestion()">搜索</button>
+	</form>
+
+	<div id="questionList"></div>
+
+	<script src="student.js">
+        function searchQuestion() {
+    // 获取题目类型
+    var questionType = document.getElementById("questionType").value;
+
+    // 调用后端API，根据题目类型获取题目列表
+    // 成功获取列表后，将题目显示在页面上
+    var questionList = [{
+        "name": "Java基础知识练习",
+        "type": "singleChoice",
+        "content": "以下关于Java基础知识错误的是？",
+        "options": {
+            "A": "Java的编译器是javac",
+            "B": "Java的虚拟机是JVM",
+            "C": "Java有多重继承",
+            "D": "Java提供了自动内存管理"
+        },
+        "correctAnswer": "C"
+    }, {
+        "name": "Web前端开发练习",
+        "type": "multipleChoice",
+        "content": "以下关于HTML错误的是？（多选题）",
+        "options": {
+            "A": "HTML是一种标记语言",
+            "B": "HTML用来描述网页内容",
+            "C": "HTML标签可以嵌套",
+            "D": "HTML只能显示文本内容"
+        },
+        "correctAnswer": "CD"
+    }];
+
+    var questionListHtml = "";
+    for (var i = 0; i < questionList.length; i++) {
+        var question = questionList[i];
+        if (questionType === "" || question.type === questionType) {
+            questionListHtml += "<p><strong>" + question.name + "</strong></p>";
+            questionListHtml += "<p>" + question.content + "</p>";
+            questionListHtml += "<ul>";
+            for (var option in question.options) {
+                questionListHtml += "<li>" + option + ". " + question.options[option] + "</li>";
+            }
+            questionListHtml += "</ul>";
+            questionListHtml += "<p>正确答案：" + question.correctAnswer + "</p>";
+            questionListHtml += "<hr>";
+        }
+    }
+
+    document.getElementById("questionList").innerHTML = questionListHtml;
+}
+
+    </script>
+</body>
+</html>
